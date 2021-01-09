@@ -57,8 +57,7 @@ public class MPlotManager
   private Map<String, List<MPlotJobBean>> groupQueue = Collections.synchronizedMap(new HashMap<>());
 
   private final Object SYNC_GROUPS = new Object();
-
-
+  
   public MPlotManager(@Autowired MPlotConfigBean mPlotConfigBean)
   {
     this.mPlotConfigBean = mPlotConfigBean;
