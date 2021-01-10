@@ -23,19 +23,46 @@
  */
 package caraniel.mplot.core.job;
 
-import caraniel.mplot.core.bean.PlotBean;
+import caraniel.mplot.core.manager.MPlotManager;
 
-public class MPlotJob
-  extends ExecuteShellJob
+public abstract class AbstractJob
+  implements Runnable
 {
-  public MPlotJob(PlotBean plotBean)
+  private String groupKey;
+  private String name;
+
+  public abstract void runJob();
+
+  public AbstractJob(String name)
   {
-    super(plotBean.getTempDirectory(), plotBean.getName(), null, createCommandArray(plotBean));
+    this(MPlotManager.NO_GROUP_KEY, name);
   }
 
-  private static String[] createCommandArray(PlotBean plotBean)
+  public AbstractJob(String groupKey, String name)
   {
-    return new String[]{plotBean.getPlotterFile(), "plots", "create", "-k", String.valueOf(plotBean.getKSize()), "-n", String.valueOf(plotBean.getRounds()),
-      "-t", plotBean.getTempDirectory(), "-d", plotBean.getDestinationDirectory()};
+    this.groupKey = groupKey;
+    this.name = name;
+  }
+
+  public String getGroupKey()
+  {
+    return groupKey;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  @Override
+  public final void run()
+  {
+    runJob();
+    finish();
+  }
+
+  protected void finish()
+  {
+
   }
 }

@@ -26,18 +26,18 @@ package caraniel.mplot.core.job;
 import java.io.File;
 import java.io.IOException;
 
-public class ExecuteShellMPlotJob
-  extends MPlotJob
+public class ExecuteShellJob
+  extends AbstractJob
 {
   private File outputFile;
   private String[] commands;
 
-  public ExecuteShellMPlotJob()
+  public ExecuteShellJob()
   {
     super("ExecuteShellMPlotJob");
   }
 
-  public ExecuteShellMPlotJob(String groupKey, String name, File outputFile, String... commands)
+  public ExecuteShellJob(String groupKey, String name, File outputFile, String... commands)
   {
     super(groupKey, name);
     this.outputFile = outputFile;

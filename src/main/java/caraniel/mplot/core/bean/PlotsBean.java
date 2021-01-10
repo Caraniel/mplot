@@ -21,21 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.core.job;
+package caraniel.mplot.core.bean;
 
-import caraniel.mplot.core.bean.PlotBean;
+import java.io.Serializable;
+import java.util.List;
 
-public class MPlotJob
-  extends ExecuteShellJob
+public class PlotsBean
+  implements Serializable
 {
-  public MPlotJob(PlotBean plotBean)
+  private List<PlotBean> plots;
+
+  public PlotsBean(List<PlotBean> plots)
   {
-    super(plotBean.getTempDirectory(), plotBean.getName(), null, createCommandArray(plotBean));
+    this.plots = plots;
   }
 
-  private static String[] createCommandArray(PlotBean plotBean)
+  public List<PlotBean> getPlots()
   {
-    return new String[]{plotBean.getPlotterFile(), "plots", "create", "-k", String.valueOf(plotBean.getKSize()), "-n", String.valueOf(plotBean.getRounds()),
-      "-t", plotBean.getTempDirectory(), "-d", plotBean.getDestinationDirectory()};
+    return plots;
   }
 }

@@ -147,7 +147,7 @@ public class MPlotManager
       {
         List<MPlotJobBean> mPlotJobBeans = groupQueue.getOrDefault(groupKey, new ArrayList<>());
 
-        if (!mPlotJobBeans.isEmpty())
+        if(!mPlotJobBeans.isEmpty())
         {
           MPlotJobBean nextMPlotJobBean = mPlotJobBeans.get(0);
           mPlotJobBeans.remove(nextMPlotJobBean);

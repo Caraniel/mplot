@@ -21,60 +21,77 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.core.manager;
+package caraniel.mplot.core.bean;
 
-import caraniel.mplot.core.job.MPlotJob;
+import java.io.Serializable;
 
-import java.util.UUID;
-import java.util.concurrent.Future;
-
-public class MPlotJobBean
+public class PlotBean
+  implements Serializable
 {
-  private String uuid;
-  private MPlotJob mPlotJob;
-  private Future<?> future;
-
-  private MPlotManager.FinishCallback finishCallback;
-
-  public MPlotJobBean(MPlotJob mPlotJob, MPlotManager.FinishCallback finishCallback)
-  {
-    this.uuid = UUID.randomUUID().toString();
-    this.mPlotJob = mPlotJob;
-    this.finishCallback = finishCallback;
-  }
-
-  public String getUuid()
-  {
-    return uuid;
-  }
-
-  public MPlotJob getMPlotJob()
-  {
-    return mPlotJob;
-  }
-
-  public MPlotManager.FinishCallback getFinishCallback()
-  {
-    return finishCallback;
-  }
+  private String plotterFile;
+  private int kSize;
+  private int rounds;
+  private String tempDirectory;
+  private String name;
+  private String destinationDirectory;
 
   public String getName()
   {
-    return mPlotJob.getName();
+    return name;
   }
 
-  public String getGroupKey()
+  public void setName(String name)
   {
-    return mPlotJob.getGroupKey();
+    this.name = name;
   }
 
-  void setFuture(Future<?> future)
+  public String getPlotterFile()
   {
-    this.future = future;
+    return plotterFile;
   }
 
-  public Future<?> getFuture()
+  public void setPlotterFile(String plotterFile)
   {
-    return future;
+    this.plotterFile = plotterFile;
+  }
+
+  public int getKSize()
+  {
+    return kSize;
+  }
+
+  public void setKSize(int kSize)
+  {
+    this.kSize = kSize;
+  }
+
+  public int getRounds()
+  {
+    return rounds;
+  }
+
+  public void setRounds(int rounds)
+  {
+    this.rounds = rounds;
+  }
+
+  public String getTempDirectory()
+  {
+    return tempDirectory;
+  }
+
+  public void setTempDirectory(String tempDirectory)
+  {
+    this.tempDirectory = tempDirectory;
+  }
+
+  public String getDestinationDirectory()
+  {
+    return destinationDirectory;
+  }
+
+  public void setDestinationDirectory(String destinationDirectory)
+  {
+    this.destinationDirectory = destinationDirectory;
   }
 }
