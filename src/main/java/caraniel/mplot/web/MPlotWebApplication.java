@@ -21,62 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.job;
+package caraniel.mplot.web;
 
-import java.io.File;
-import java.io.IOException;
+import caraniel.mplot.web.config.WebMPlotConfig;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
-public class ExecuteShellMPlotJob
-  extends MPlotJob
+@SpringBootApplication
+@Import(WebMPlotConfig.class)
+public class MPlotWebApplication
 {
-  private File outputFile;
-  private String[] commands;
-
-  public ExecuteShellMPlotJob()
+  public static void main(String[] args)
   {
-    super("ExecuteShellMPlotJob");
-  }
-
-  public ExecuteShellMPlotJob(String groupKey, String name, File outputFile, String... commands)
-  {
-    super(groupKey, name);
-    this.outputFile = outputFile;
-    this.commands = commands;
-  }
-
-  @Override
-  public void runJob()
-  {
-    ProcessBuilder processBuilder = new ProcessBuilder(commands);
-
-    try
-    {
-      if(outputFile != null)
-      {
-        processBuilder.redirectOutput(outputFile);
-      }
-
-      Process process = processBuilder.start();
-
-      System.out.println("x");
-      try
-      {
-        int i = process.waitFor();
-      }
-      catch(InterruptedException e)
-      {
-        e.printStackTrace();
-      }
-
-      //while(process.isAlive())
-      {
-        //process.destroy();
-        System.out.println(".");
-      }
-    }
-    catch(IOException e)
-    {
-      e.printStackTrace();
-    }
+    SpringApplication springApplication = new SpringApplication(MPlotWebApplication.class);
+    ConfigurableApplicationContext run = springApplication.run(args);
   }
 }

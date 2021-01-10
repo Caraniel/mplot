@@ -20,49 +20,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
-package caraniel.mplot.job;
+package caraniel.mplot.core.config;
 
-import caraniel.mplot.manager.MPlotManager;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-public abstract class MPlotJob
-  implements Runnable
+@Configuration
+@ComponentScan(basePackages = {"caraniel.mplot.core.manager", "caraniel.mplot.core.service", "caraniel.mplot.core.worker"})
+public class MPlotConfig
 {
-  private String groupKey;
-  private String name;
-
-  public abstract void runJob();
-
-  public MPlotJob(String name)
-  {
-    this(MPlotManager.NO_GROUP_KEY, name);
-  }
-
-  public MPlotJob(String groupKey, String name)
-  {
-    this.groupKey = groupKey;
-    this.name = name;
-  }
-
-  public String getGroupKey()
-  {
-    return groupKey;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
-
-  @Override
-  public final void run()
-  {
-    runJob();
-    finish();
-  }
-
-  protected void finish()
-  {
-
-  }
 }

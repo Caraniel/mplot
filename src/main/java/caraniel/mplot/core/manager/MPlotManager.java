@@ -21,10 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.manager;
+package caraniel.mplot.core.manager;
 
-import caraniel.mplot.config.MPlotConfigBean;
-import caraniel.mplot.job.MPlotJob;
+import caraniel.mplot.core.config.MPlotConfigBean;
+import caraniel.mplot.core.job.MPlotJob;
+import caraniel.mplot.core.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +49,6 @@ public class MPlotManager
 
   public static final String NO_GROUP_KEY = "NO_GROUP_KEY";
 
-  private MPlotConfigBean mPlotConfigBean;
 
   private ExecutorService executorService;
   private Map<String, MPlotJobBean> mPlotJobLookup = Collections.synchronizedMap(new HashMap<>());
@@ -57,17 +57,21 @@ public class MPlotManager
   private Map<String, List<MPlotJobBean>> groupQueue = Collections.synchronizedMap(new HashMap<>());
 
   private final Object SYNC_GROUPS = new Object();
-  
-  public MPlotManager(@Autowired MPlotConfigBean mPlotConfigBean)
-  {
-    this.mPlotConfigBean = mPlotConfigBean;
 
-    initManager(mPlotConfigBean);
+  private SettingsService settingsService;
+
+  public MPlotManager(@Autowired SettingsService settingsService)
+  {
+    this.settingsService = settingsService;
+
+    initManager(settingsService);
   }
 
-  private void initManager(MPlotConfigBean mPlotConfigBean)
+  private void initManager(SettingsService settingsService)
   {
     LOG.info("Init MPlotManager!");
+
+    MPlotConfigBean mPlotConfigBean = settingsService.getMPlotConfig();
 
     LOG.info("threadAmount: " + mPlotConfigBean.getThreadAmount());
     executorService = Executors.newFixedThreadPool(mPlotConfigBean.getThreadAmount());

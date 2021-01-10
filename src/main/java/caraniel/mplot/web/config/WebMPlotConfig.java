@@ -21,24 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.config;
+package caraniel.mplot.web.config;
 
-public class MPlotConfigBean
+import caraniel.mplot.core.config.MPlotConfig;
+import caraniel.mplot.core.config.MPlotConfigBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+@Configuration
+@Import(MPlotConfig.class)
+public class WebMPlotConfig
 {
-  private int threadAmount;
-
-  public MPlotConfigBean(int threadAmount)
+  @Bean
+  public MPlotConfigBean getMPlotConfigBean()
   {
-    this.threadAmount = threadAmount;
-  }
-
-  public int getThreadAmount()
-  {
-    return threadAmount;
-  }
-
-  public void setThreadAmount(int threadAmount)
-  {
-    this.threadAmount = threadAmount;
+    return new MPlotConfigBean(1);
   }
 }

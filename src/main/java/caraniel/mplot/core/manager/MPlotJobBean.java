@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.manager;
+package caraniel.mplot.core.manager;
 
-import caraniel.mplot.job.MPlotJob;
+import caraniel.mplot.core.job.MPlotJob;
 
 import java.util.UUID;
 import java.util.concurrent.Future;
