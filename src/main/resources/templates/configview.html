@@ -11,5 +11,11 @@
 <div th:text="${mPlotConfig.threadAmount}"></div>
 </div>
 
+<form action="#" th:action="@{/configform}" th:object="${mPlotConfig}" method="post">
+  <p>Thread amount: <input type="text" th:field="*{threadAmount}" /></p>
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
 </body>
 </html>
