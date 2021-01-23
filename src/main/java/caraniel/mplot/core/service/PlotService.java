@@ -21,46 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package caraniel.mplot.web.controller;
+package caraniel.mplot.core.service;
 
-import caraniel.mplot.core.config.MPlotConfigBean;
-import caraniel.mplot.core.service.PlotService;
-import caraniel.mplot.core.service.SettingsService;
+import caraniel.mplot.core.bean.PlotInfosBean;
+import caraniel.mplot.core.worker.PlotWorker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Service;
 
-@Controller
-public class MPlotController
+@Service
+public class PlotService
 {
-  @Autowired
   private SettingsService settingsService;
 
-  @Autowired
-  private PlotService plotService;
+  private PlotWorker plotWorker;
 
-  @GetMapping("/plotoverview")
-  public String plotoverview( Model model)
+  public PlotService(@Autowired SettingsService settingsService, @Autowired PlotWorker plotWorker)
   {
-    model.addAttribute("plotInfos", plotService.getPlotInfos());
-    return "plotoverview";
+    this.settingsService = settingsService;
+    this.plotWorker = plotWorker;
+
+    this.plotWorker.initPlotManager(settingsService.getMPlotConfig());
   }
 
-  @GetMapping("/configview")
-  public String configview(Model model)
+  public PlotInfosBean getPlotInfos()
   {
-    model.addAttribute("mPlotConfig", settingsService.getMPlotConfig());
-    return "configview";
-  }
-
-  @PostMapping("configform")
-  public ModelAndView configForm(@ModelAttribute(name = "mPlotConfig") MPlotConfigBean mPlotConfig, Model model)
-  {
-    settingsService.storeMPlotConfig(mPlotConfig);
-    return new ModelAndView("redirect:/configview");
+    return plotWorker.getPlotInfos();
   }
 }

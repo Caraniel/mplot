@@ -25,9 +25,6 @@ package caraniel.mplot.core.manager;
 
 import caraniel.mplot.core.config.MPlotConfigBean;
 import caraniel.mplot.core.job.MPlotJob;
-import caraniel.mplot.core.service.SettingsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,13 +39,11 @@ import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
-@Component
 public class MPlotManager
 {
   private static final Logger LOG = Logger.getLogger(MPlotManager.class.getName());
 
   public static final String NO_GROUP_KEY = "NO_GROUP_KEY";
-
 
   private ExecutorService executorService;
   private Map<String, MPlotJobBean> mPlotJobLookup = Collections.synchronizedMap(new HashMap<>());
@@ -58,26 +53,20 @@ public class MPlotManager
 
   private final Object SYNC_GROUPS = new Object();
 
-  private SettingsService settingsService;
-
-  public MPlotManager(@Autowired SettingsService settingsService)
+  public MPlotManager()
   {
-    this.settingsService = settingsService;
 
-    initManager(settingsService);
   }
 
-  private void initManager(SettingsService settingsService)
+  public void initManager(MPlotConfigBean mPlotConfig)
   {
     LOG.info("Init MPlotManager!");
 
-    MPlotConfigBean mPlotConfigBean = settingsService.getMPlotConfig();
-
-    LOG.info("threadAmount: " + mPlotConfigBean.getThreadAmount());
-    executorService = Executors.newFixedThreadPool(mPlotConfigBean.getThreadAmount());
+    LOG.info("threadAmount: " + mPlotConfig.getThreadAmount());
+    executorService = Executors.newFixedThreadPool(mPlotConfig.getThreadAmount());
   }
 
-  public void start(MPlotJob mPlotJob, FinishCallback finishCallback)
+  public String start(MPlotJob mPlotJob, FinishCallback finishCallback)
   {
     MPlotJobBean mPlotJobBean = new MPlotJobBean(mPlotJob, finishCallback);
     mPlotJobLookup.put(mPlotJobBean.getUuid(), mPlotJobBean);
@@ -88,6 +77,7 @@ public class MPlotManager
 
       startJob(mPlotJobBean);
     }
+    return mPlotJobBean.getUuid();
   }
 
   private boolean isGroupAllowed(MPlotJobBean mPlotJobBean)

@@ -1,10 +1,35 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>MPlot</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+
+<!--/*@thymesVar id="mPlotConfig" type="caraniel.mplot.core.config.MPlotConfigBean"*/-->
+
+<header th:insert="fragments/fragments.html :: sitenavigation"></header>
+
+<table>
+  <tr>
+    <th>Plotter</th>
+    <th>KSize</th>
+    <th>Rounds</th>
+    <th>t-Dir</th>
+    <th>Name</th>
+    <th>d-Dir</th>
+  </tr>
+  <tr>
+  </tr>
+  <form action="#" th:action="@{/configform}" th:object="${mPlotConfig}" method="post">
+
+    <td></td>
+  </form>
+</table>
+
 <div>HelloWorld</div>
+
+
+<div th:insert="fragments/fragments.html :: sitefooter"></div>
 </body>
 </html>

@@ -100,7 +100,9 @@ public class SettingsWorker
       Properties properties = new Properties();
       fillProperties(properties, this.mPlotConfig);
       fillProperties(properties, mPlotConfig);
-      properties.store(new FileOutputStream(settingsPath), "Date: ");
+      String absolutePath = new File(settingsPath).getAbsolutePath();
+      LOG.info("Save settings to: '" + absolutePath + "'.");
+      properties.store(new FileOutputStream(absolutePath), "Date: ");
 
       loadSettings();
     }

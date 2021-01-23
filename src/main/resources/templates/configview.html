@@ -5,17 +5,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>Config</div>
-<div>Thread-Amount:
 
-<div th:text="${mPlotConfig.threadAmount}"></div>
-</div>
+<header th:insert="fragments/fragments.html :: sitenavigation"></header>
+
+<div>Config</div>
+
+<!--/*@thymesVar id="mPlotConfig" type="caraniel.mplot.core.config.MPlotConfigBean"*/-->
 
 <form action="#" th:action="@{/configform}" th:object="${mPlotConfig}" method="post">
-  <p>Thread amount: <input type="text" th:field="*{threadAmount}" /></p>
+  <p>Thread amount: <input type="number" th:field="*{threadAmount}" /></p>
 
   <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
+
+<div th:insert="fragments/fragments.html :: sitefooter"></div>
 
 </body>
 </html>
