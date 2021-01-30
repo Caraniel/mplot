@@ -116,7 +116,7 @@ public class MPlotManager
       @Override
       public Object apply(Void unused)
       {
-        mPlotJobBean.getFinishCallback().finished(unused);
+        mPlotJobBean.getStateCallback().finished(unused);
 
         removeAndCheckGroups(mPlotJobBean);
 

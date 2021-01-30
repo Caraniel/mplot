@@ -27,6 +27,7 @@ import caraniel.mplot.core.bean.PlotBean;
 import caraniel.mplot.core.bean.PlotInfoBean;
 import caraniel.mplot.core.bean.PlotInfosBean;
 import caraniel.mplot.core.config.MPlotConfigBean;
+import caraniel.mplot.core.job.AbstractJob;
 import caraniel.mplot.core.job.MPlotJob;
 import caraniel.mplot.core.manager.MPlotManager;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,9 @@ public class PlotWorker
 
   public String startPlot(PlotBean plotBean)
   {
-    String plotUUID = plotManager.start(new MPlotJob(plotBean), new MPlotManager.StateCallback()
+    String plotUUID = plotManager.start(new MPlotJob(plotBean, new AbstractJob.StateCallback()
+    {
+    }), new MPlotManager.StateCallback()
     {
       @Override
       public void finished(Void unused)

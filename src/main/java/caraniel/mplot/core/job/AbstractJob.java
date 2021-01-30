@@ -30,18 +30,20 @@ public abstract class AbstractJob
 {
   private String groupKey;
   private String name;
+  protected StateCallback stateCallback;
 
   public abstract void runJob();
 
-  public AbstractJob(String name)
+  public AbstractJob(String name, StateCallback stateCallback)
   {
-    this(MPlotManager.NO_GROUP_KEY, name);
+    this(MPlotManager.NO_GROUP_KEY, name, stateCallback);
   }
 
-  public AbstractJob(String groupKey, String name)
+  public AbstractJob(String groupKey, String name, StateCallback stateCallback)
   {
     this.groupKey = groupKey;
     this.name = name;
+    this.stateCallback = stateCallback;
   }
 
   public String getGroupKey()
@@ -62,6 +64,11 @@ public abstract class AbstractJob
   }
 
   protected void finish()
+  {
+
+  }
+
+  public interface StateCallback
   {
 
   }

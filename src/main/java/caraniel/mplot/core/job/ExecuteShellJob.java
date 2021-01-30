@@ -32,14 +32,14 @@ public class ExecuteShellJob
   private File outputFile;
   private String[] commands;
 
-  public ExecuteShellJob()
+  public ExecuteShellJob(StateCallback stateCallback)
   {
-    super("ExecuteShellMPlotJob");
+    super("ExecuteShellMPlotJob", stateCallback);
   }
 
-  public ExecuteShellJob(String groupKey, String name, File outputFile, String... commands)
+  public ExecuteShellJob(String groupKey, String name, StateCallback stateCallback, File outputFile, String... commands)
   {
-    super(groupKey, name);
+    super(groupKey, name, stateCallback);
     this.outputFile = outputFile;
     this.commands = commands;
   }

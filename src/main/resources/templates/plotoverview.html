@@ -25,6 +25,14 @@
     <th>d-Dir</th>
   </tr>
 
+  <tr th:each="plotInfo: ${plotInfos.plotInfos}">
+    <td th:text="${plotInfo.plot.plotterFile}"/>
+    <td th:text="${plotInfo.plot.KSize}"/>
+    <td th:text="${plotInfo.plot.rounds}"/>
+    <td th:text="${plotInfo.plot.tempDirectory}"/>
+    <td th:text="${plotInfo.plot.name}"/>
+    <td th:text="${plotInfo.plot.destinationDirectory}"/>
+  </tr>
   
 
   <tr>

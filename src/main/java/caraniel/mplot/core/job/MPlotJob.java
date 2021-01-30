@@ -28,9 +28,9 @@ import caraniel.mplot.core.bean.PlotBean;
 public class MPlotJob
   extends ExecuteShellJob
 {
-  public MPlotJob(PlotBean plotBean)
+  public MPlotJob(PlotBean plotBean, StateCallback stateCallback)
   {
-    super(plotBean.getTempDirectory(), plotBean.getName(), null, createCommandArray(plotBean));
+    super(plotBean.getTempDirectory(), plotBean.getName(), stateCallback, null, createCommandArray(plotBean));
   }
 
   private static String[] createCommandArray(PlotBean plotBean)

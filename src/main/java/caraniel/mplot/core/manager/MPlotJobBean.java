@@ -53,7 +53,7 @@ public class MPlotJobBean
     return mPlotJob;
   }
 
-  public MPlotManager.StateCallback getFinishCallback()
+  public MPlotManager.StateCallback getStateCallback()
   {
     return stateCallback;
   }
