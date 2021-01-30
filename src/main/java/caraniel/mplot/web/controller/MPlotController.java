@@ -23,6 +23,7 @@
  */
 package caraniel.mplot.web.controller;
 
+import caraniel.mplot.core.bean.PlotBean;
 import caraniel.mplot.core.config.MPlotConfigBean;
 import caraniel.mplot.core.service.PlotService;
 import caraniel.mplot.core.service.SettingsService;
@@ -47,7 +48,16 @@ public class MPlotController
   public String plotoverview( Model model)
   {
     model.addAttribute("plotInfos", plotService.getPlotInfos());
+    model.addAttribute("mPlotBean", new PlotBean());
     return "plotoverview";
+  }
+
+  @PostMapping("plotnewentry")
+  public ModelAndView plotNewEntry(@ModelAttribute(name = "mPlotBean") PlotBean plotBean, Model model)
+  {
+    plotService.startPlot(plotBean);
+//    settingsService.storeMPlotConfig(mPlotConfig);
+    return new ModelAndView("redirect:/plotoverview");
   }
 
   @GetMapping("/configview")

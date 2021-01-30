@@ -6,9 +6,14 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="mPlotConfig" type="caraniel.mplot.core.config.MPlotConfigBean"*/-->
+<!--/*@thymesVar id="plotInfos" type="caraniel.mplot.core.bean.PlotInfosBean"*/-->
+<!--/*@thymesVar id="mPlotBean" type="caraniel.mplot.core.bean.PlotBean"*/-->
 
 <header th:insert="fragments/fragments.html :: sitenavigation"></header>
+
+
+<form id="newentry" action="#" th:action="@{/plotnewentry}" th:object="${mPlotBean}" method="post">
+</form>
 
 <table>
   <tr>
@@ -19,12 +24,33 @@
     <th>Name</th>
     <th>d-Dir</th>
   </tr>
-  <tr>
-  </tr>
-  <form action="#" th:action="@{/configform}" th:object="${mPlotConfig}" method="post">
 
-    <td></td>
-  </form>
+  
+
+  <tr>
+    <td>
+      <input th:field="*{mPlotBean.plotterFile}" name="plotter-file" type="text" form="newentry"/>
+    </td>
+    <td>
+      <input th:field="*{mPlotBean.KSize}" name="plotter-ksize" type="number" form="newentry"/>
+    </td>
+    <td>
+      <input th:field="*{mPlotBean.rounds}" name="plotter-rounds" type="number" form="newentry"/>
+    </td>
+    <td>
+      <input th:field="*{mPlotBean.tempDirectory}" name="plotter-tempdir" type="text" form="newentry"/>
+    </td>
+    <td>
+    </td>
+    <td>
+      <input th:field="*{mPlotBean.destinationDirectory}" name="plotter-destdir" type="text" form="newentry"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="submit" value="Submit" form="newentry"/>
+    </td>
+  </tr>
 </table>
 
 <div>HelloWorld</div>

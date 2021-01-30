@@ -34,13 +34,13 @@ public class MPlotJobBean
   private MPlotJob mPlotJob;
   private Future<?> future;
 
-  private MPlotManager.FinishCallback finishCallback;
+  private MPlotManager.StateCallback stateCallback;
 
-  public MPlotJobBean(MPlotJob mPlotJob, MPlotManager.FinishCallback finishCallback)
+  public MPlotJobBean(MPlotJob mPlotJob, MPlotManager.StateCallback stateCallback)
   {
     this.uuid = UUID.randomUUID().toString();
     this.mPlotJob = mPlotJob;
-    this.finishCallback = finishCallback;
+    this.stateCallback = stateCallback;
   }
 
   public String getUuid()
@@ -53,9 +53,9 @@ public class MPlotJobBean
     return mPlotJob;
   }
 
-  public MPlotManager.FinishCallback getFinishCallback()
+  public MPlotManager.StateCallback getFinishCallback()
   {
-    return finishCallback;
+    return stateCallback;
   }
 
   public String getName()

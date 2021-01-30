@@ -23,6 +23,7 @@
  */
 package caraniel.mplot.core.service;
 
+import caraniel.mplot.core.bean.PlotBean;
 import caraniel.mplot.core.bean.PlotInfosBean;
 import caraniel.mplot.core.worker.PlotWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,10 @@ public class PlotService
   public PlotInfosBean getPlotInfos()
   {
     return plotWorker.getPlotInfos();
+  }
+
+  public void startPlot(PlotBean plotBean)
+  {
+    plotWorker.startPlot(plotBean);
   }
 }

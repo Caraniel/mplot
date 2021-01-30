@@ -24,6 +24,7 @@
 package caraniel.mplot.core.worker;
 
 import caraniel.mplot.core.bean.PlotBean;
+import caraniel.mplot.core.bean.PlotInfoBean;
 import caraniel.mplot.core.bean.PlotInfosBean;
 import caraniel.mplot.core.config.MPlotConfigBean;
 import caraniel.mplot.core.job.MPlotJob;
@@ -31,20 +32,25 @@ import caraniel.mplot.core.manager.MPlotManager;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class PlotWorker
 {
   private MPlotManager plotManager = new MPlotManager();
 
+  private Map<String, PlotInfoBean> plotInfoLookup = Collections.synchronizedMap(new HashMap<>());
+
   public void initPlotManager(MPlotConfigBean mPlotConfig)
   {
     plotManager.initManager(mPlotConfig);
   }
 
-  public void startPlot(PlotBean plotBean)
+  public String startPlot(PlotBean plotBean)
   {
-    plotManager.start(new MPlotJob(plotBean), new MPlotManager.FinishCallback()
+    String plotUUID = plotManager.start(new MPlotJob(plotBean), new MPlotManager.StateCallback()
     {
       @Override
       public void finished(Void unused)
@@ -52,12 +58,13 @@ public class PlotWorker
 
       }
     });
+    plotInfoLookup.put(plotUUID, new PlotInfoBean(plotBean));
+
+    return plotUUID;
   }
 
   public PlotInfosBean getPlotInfos()
   {
-//    plotManager.
-
-    return new PlotInfosBean(new ArrayList<>());
+    return new PlotInfosBean(new ArrayList<>(plotInfoLookup.values()));
   }
 }

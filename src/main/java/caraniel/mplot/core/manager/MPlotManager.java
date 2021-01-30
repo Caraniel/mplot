@@ -66,9 +66,9 @@ public class MPlotManager
     executorService = Executors.newFixedThreadPool(mPlotConfig.getThreadAmount());
   }
 
-  public String start(MPlotJob mPlotJob, FinishCallback finishCallback)
+  public String start(MPlotJob mPlotJob, StateCallback stateCallback)
   {
-    MPlotJobBean mPlotJobBean = new MPlotJobBean(mPlotJob, finishCallback);
+    MPlotJobBean mPlotJobBean = new MPlotJobBean(mPlotJob, stateCallback);
     mPlotJobLookup.put(mPlotJobBean.getUuid(), mPlotJobBean);
 
     if(isGroupAllowed(mPlotJobBean))
@@ -164,7 +164,7 @@ public class MPlotManager
     return mPlotJobs;
   }
 
-  public interface FinishCallback
+  public interface StateCallback
   {
     void finished(Void unused);
   }
